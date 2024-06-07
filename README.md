@@ -1,5 +1,7 @@
 # Welcome to the Frontend Tech Test
 
+You can either provide a zipped folder or a link to a public repository for the submission of this test. If you wish to provide a link to a public repository please clone this repository (do not fork) and change the remote so your own repository without reference to "Arqiva". This will help keep this test fair, meaning others cannot use reference to your code.
+
 ## Project Overview
 
 Build a simple yet functional web application that allows users to view and search through a list of video contributions. The application should demonstrate your ability to create a responsive, user-friendly interface and integrate with a backend service.
@@ -24,8 +26,8 @@ Build a homepage that should show a list of contributions, retrieved from the pr
 - For each contribution show its:
   - Title
   - Description
-  - Start time; displaying the time in the users locale
-  - End time; displaying the time in the users locale
+  - Start time; displaying the date and time in the users locale
+  - End time; displaying the date and time in the users locale
   - Owner (the producer of the contribution)
   - Status; is the contribution `Complete` (in the past), `Active` (currently being aired) or `Scheduled` (in the future)
 - Shows 14 contributions at once
