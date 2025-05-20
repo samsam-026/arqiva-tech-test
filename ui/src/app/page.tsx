@@ -60,9 +60,9 @@ export default function Home() {
           </Row> : <p className="m-auto">No contributions</p>}
           <Row className="my-3">
             <Col className="text-center">
-              <Button disabled={page === 1} className="me-3" onClick={getPrevPage}>&lt; Previous</Button>
+              <Button disabled={page === 1} className="me-3" onClick={getPrevPage}>&#10094;</Button>
               {page}
-              <Button disabled={!hasMore} className="ms-3" onClick={getNextPage}>Next &gt;</Button>
+              <Button disabled={!hasMore} className="ms-3" onClick={getNextPage}>&#10095;</Button>
             </Col>
           </Row>
         </>}
