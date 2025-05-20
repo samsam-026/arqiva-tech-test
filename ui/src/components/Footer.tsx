@@ -1,15 +1,10 @@
-import React from "react"
 
-class Footer extends React.Component {
-    render() {
-        return (
-            <div className="footer py-5">
-                <p className="text-center copyright">
-                    © Copyright {new Date().getFullYear()} Sameeha Rahman
-                </p>
-            </div>
-        )
-    }
+export default function Footer() {
+    return (
+        <div className="footer p-3">
+            <p className="text-center copyright p-0">
+                © Copyright {new Date().getFullYear()} Sameeha Rahman
+            </p>
+        </div>
+    )
 }
-
-export default Footer

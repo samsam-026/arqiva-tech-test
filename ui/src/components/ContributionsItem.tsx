@@ -8,7 +8,7 @@ type ContributionItemProps = {
 export default function ContributionItem({ item, ...otherProps }: ContributionItemProps) {
   const { title, description, startTime, endTime } = item;
   return (
-    <Card className="contribution-item" {...otherProps}>
+    <Card className="h-100" {...otherProps}>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text><i>By {item.owner}</i></Card.Text>
