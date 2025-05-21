@@ -17,7 +17,7 @@ export default function Home() {
   // Get the initial search type and query from the URL
   let initialSearchType = ContributionOrder.Title;
   let initialSearchQuery = "";
-  ContributionSearchOptions.some(option => {
+  ContributionSearchOptions.some((option: ContributionOrder) => {
     if (searchParams.has(option)) {
       initialSearchType = option as ContributionOrder;
       initialSearchQuery = searchParams.get(option) as string;
@@ -26,12 +26,14 @@ export default function Home() {
   });
 
   const [contributions, setContributions] = useState<Contribution[]>([]);
-  const [page, setPage] = useState(searchParams.has("page") ? parseInt(searchParams.get("page") as string) : 1);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const [numPages, setNumPages] = useState(1);
-  const [orderBy, setOrderBy] = useState((searchParams.get("order_by") as ContributionOrder) || ContributionOrder.Id);
-  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
+  const [page, setPage] = useState<number>(searchParams.has("page") ? parseInt(searchParams.get("page") as string) : 1);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [numPages, setNumPages] = useState<number>(1);
+  const [orderBy, setOrderBy] = useState<ContributionOrder>(
+    (searchParams.get("order_by") as ContributionOrder) || ContributionOrder.Id
+  );
+  const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery);
   const [searchType, setSearchType] = useState<ContributionOrder>(initialSearchType);
   const scrollTopRef = useRef<HTMLDivElement>(null);
 
@@ -141,7 +143,7 @@ export default function Home() {
           <>
             {contributions.length > 0 ? (
               <Row>
-                {contributions.map((item: any, index: number) => (
+                {contributions.map((item: Contribution, index: number) => (
                   <Col lg={4} md={6} className="contribution-item" key={index}>
                     <ContributionItem item={item} />
                   </Col>
