@@ -1,16 +1,18 @@
 "use client"
-import RootLayout from "./layout";
-import { Button, ButtonGroup, Card, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
+import { Button, ButtonGroup, Card, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+
 import { Contribution, ContributionResponse } from "@/models/contributions";
 import ContributionItem from "@/components/ContributionsItem";
 import Footer from "@/components/Footer";
+import { getContributions, PAGE_SIZE } from "@/services/api";
+
+import RootLayout from "./layout";
 import { ContributionOrder, ContributionOrderOptions } from "./form-options";
 
-const ENDPOINT = "http://localhost:8000/contributions";
-const PAGE_SIZE = 14;
 
 export default function Home() {
+
   const [contributions, setContributions] = useState<Contribution[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -24,22 +26,7 @@ export default function Home() {
 
   useEffect(() => {
     setLoading(true);
-    const skip = (page - 1) * PAGE_SIZE;
-    let endpoint = `${ENDPOINT}?skip=${skip}&limit=${PAGE_SIZE}&order_by=${orderBy}`;
-    if (title.length > 0) {
-      endpoint += `&title=${title}`;
-    }
-    if (owner.length > 0) {
-      endpoint += `&owner=${owner}`;
-    }
-    if (description.length > 0) {
-      endpoint += `&description=${description}`;
-    }
-    if (title.length > 0 || owner.length > 0 || description.length > 0) {
-      endpoint += `&match=all`;
-    }
-    fetch(endpoint)
-      .then((response) => response.json())
+    getContributions(page, orderBy, title, owner, description)
       .then((data: ContributionResponse) => {
         setContributions(data.contributions);
         setHasMore(data.total > (page * PAGE_SIZE));

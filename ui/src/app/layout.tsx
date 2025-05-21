@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.css"
-import "./globals.css";
+import "./../theme/globals.css";
 
 export default function RootLayout({
   children,
