@@ -9,18 +9,31 @@ import { getContributions, PAGE_SIZE } from "@/services/api";
 
 import RootLayout from "./layout";
 import { ContributionOrder, ContributionOrderOptions, ContributionSearchOptions } from "./form-options";
+import { useSearchParams } from "next/navigation";
 
 
 export default function Home() {
+  const searchParams = useSearchParams()
+  
+  // Get the initial search type and query from the URL
+  let initialSearchType = ContributionOrder.Title;
+  let initialSearchQuery = ''
+  ContributionSearchOptions.some((option) => {
+    if (searchParams.has(option)) {
+      initialSearchType = option as ContributionOrder;
+      initialSearchQuery = searchParams.get(option) as string;
+      return true;
+    }
+  });
 
   const [contributions, setContributions] = useState<Contribution[]>([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(searchParams.has('page') ? parseInt(searchParams.get('page') as string) : 1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [numPages, setNumPages] = useState(1);
-  const [orderBy, setOrderBy] = useState(ContributionOrder.Id);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchType, setSearchType] = useState(ContributionOrder.Title);
+  const [orderBy, setOrderBy] = useState(searchParams.get('order_by') as ContributionOrder || ContributionOrder.Id);
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
+  const [searchType, setSearchType] = useState<ContributionOrder>(initialSearchType);
   const scrollTopRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,10 +60,12 @@ export default function Home() {
     setOrderBy(selectedOrder);
     setPage(1);
   };
+
   const handleSearchQueryChange = (searchQuery: string) => {
     setSearchQuery(searchQuery);
     setPage(1);
   };
+
   const handleSearchTypeChange = (searchType: ContributionOrder) => {
     setSearchType(searchType);
     setPage(1);
