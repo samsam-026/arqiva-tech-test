@@ -16,3 +16,4 @@ export const ContributionOrderOptions = new Map<ContributionOrder, string>([
     [ContributionOrder.Owner, "Owner"],
 ]);
 
+export const ContributionSearchOptions = [ContributionOrder.Title, ContributionOrder.Owner, ContributionOrder.Description];
